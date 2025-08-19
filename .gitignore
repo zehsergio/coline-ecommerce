@@ -1,0 +1,29 @@
+# WordPress core
+/wp-config.php
+/wp-content/uploads/
+/wp-content/cache/
+/wp-content/backups/
+/wp-content/upgrade/
+/wp-content/ai1wm-backups/  # All in One backups
+
+# Arquivos sensíveis
+*.sql
+*.zip
+*.tar.gz
+.env
+*.log
+
+# Configurações do sistema
+.htaccess
+nginx.conf
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Sistema
+.DS_Store
+Thumbs.db
+wp-config.php
