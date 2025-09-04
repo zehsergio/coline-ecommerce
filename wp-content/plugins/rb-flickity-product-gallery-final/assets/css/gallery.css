@@ -1,0 +1,48 @@
+/* Final layout: main + side previews (desktop), mobile only main */
+.rbpdp { display:grid; grid-template-columns: 1fr; gap:14px; align-items:stretch; width:100%; }
+@media (min-width: 992px){
+  .rbpdp { grid-template-columns: 1fr minmax(500px, 720px) 1fr; gap:18px; }
+}
+
+.rbpdp-gallery { position:relative; width:100%; }
+.rbpdp-gallery--main { min-height: 480px; }
+@media (min-width: 992px){ .rbpdp-gallery--main { min-height: 560px; } }
+
+.rbp-slide { width:100%; }
+.rbp-slide img { display:block; width:100%; height:auto; }
+
+/* Side previews subtle */
+.rbpdp-gallery--previous, .rbpdp-gallery--next { display:none; opacity:0.75; filter:grayscale(40%); }
+@media (min-width: 992px){
+  .rbpdp-gallery--previous, .rbpdp-gallery--next { display:block; }
+}
+
+/* Controls */
+.rbp-controls { position:absolute; bottom:14px; right:14px; display:flex; gap:10px; z-index:5; }
+.rbp-btn { border:none; background:rgba(0,0,0,0.65); color:#fff; padding:8px 10px; cursor:pointer; font-size:14px; }
+
+/* Ensure Flickity viewport stretches */
+.rbpdp .flickity-viewport, .rbpdp .flickity-slider { width:100%; height:100%; }
+
+/* Uniform heights via CSS variables: --rbpdp-h-d (desktop) / --rbpdp-h-m (mobile) */
+.rbpdp { --rbpdp-h-m: 420px; --rbpdp-h-d: 560px; }
+.rbpdp-gallery { position:relative; width:100%; }
+.rbpdp-gallery--main,
+.rbpdp-gallery--previous,
+.rbpdp-gallery--next { height: var(--rbpdp-h-m); }
+
+@media (min-width: 992px){
+  .rbpdp-gallery--main,
+  .rbpdp-gallery--previous,
+  .rbpdp-gallery--next { height: var(--rbpdp-h-d); }
+}
+
+/* Make every slide fill container and crop elegantly */
+.rbp-slide { width:100%; height:100%; position:relative; overflow:hidden; }
+.rbp-slide img { width:100%; height:100%; object-fit: cover; object-position: center; display:block; }
+
+/* Ensure side previews are visible at same height */
+.rbpdp-gallery--previous, .rbpdp-gallery--next { opacity:0.8; filter:grayscale(40%); }
+
+/* Keep Flickity internals stretched */
+.rbpdp .flickity-viewport, .rbpdp .flickity-slider { width:100%; height:100%; }

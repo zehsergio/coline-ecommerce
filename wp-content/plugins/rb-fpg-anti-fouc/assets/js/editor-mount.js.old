@@ -1,0 +1,20 @@
+(function($){
+  'use strict';
+  function mount(ctx){
+    var $ctx = ctx ? $(ctx) : $(document);
+    // Nada aqui interfere se o widget já monta; é apenas uma chamada extra para editor.
+    if (window.rbpdpMount) { try { window.rbpdpMount($ctx.get(0)); } catch(e){} }
+  }
+  $(function(){
+    // Em modo editor do Elementor, chamar montagem cedo e novamente após um pequeno atraso
+    if (window.elementorFrontend && elementorFrontend.isEditMode && elementorFrontend.isEditMode()) {
+      mount(document);
+      setTimeout(function(){ mount(document); }, 300);
+      setTimeout(function(){ mount(document); }, 900);
+    }
+    // Também quando qualquer widget for renderizado
+    if (window.elementorFrontend && window.elementorFrontend.hooks) {
+      elementorFrontend.hooks.addAction('frontend/element_ready/global', function(scope){ mount(scope); });
+    }
+  });
+})(jQuery);

@@ -1,0 +1,14 @@
+/* Anti-FOUC v3: antes do JS, nunca empilhe; mostre APENAS 1 slide por galeria */
+.rbpdp { opacity: 0; }
+.rbpdp.rbpdp--ready { opacity: 1; transition: opacity .2s ease; }
+
+/* Enquanto NÃO estiver pronto, esconda todos os slides… */
+.rbpdp:not(.rbpdp--ready) .rbpdp-gallery .rbp-slide { display: none; }
+
+/* …exceto um por galeria, para parecer correto no primeiro paint: */
+.rbpdp:not(.rbpdp--ready) .rbpdp-gallery--main     .rbp-slide:first-child { display: block; } /* 0 */
+.rbpdp:not(.rbpdp--ready) .rbpdp-gallery--previous .rbp-slide:last-child  { display: block; } /* -1 (fallback p/ 1º se houver 1 só) */
+.rbpdp:not(.rbpdp--ready) .rbpdp-gallery--next     .rbp-slide:nth-child(2){ display: block; } /* +1 (fallback: se 1 só, nada quebra) */
+
+/* Quando o Flickity assumir, ele controla a visibilidade. Nada mais aqui. */
+

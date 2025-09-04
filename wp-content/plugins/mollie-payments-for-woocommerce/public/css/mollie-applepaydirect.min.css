@@ -1,0 +1,27 @@
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].oneOf[1].use[1]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[4].oneOf[1].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].oneOf[1].use[3]!./resources/scss/mollie-applepaydirect.scss ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************/
+.buttonDisabled {
+  opacity: 0.2;
+}
+
+.apple-pay-button {
+  display: inline-block;
+  width: 100%;
+  -webkit-appearance: -apple-pay-button;
+  -apple-pay-button-type: checkout; /* also: check-out, book, or subscribe */
+}
+
+.apple-pay-button-black {
+  -apple-pay-button-style: black;
+}
+
+.apple-pay-button-white {
+  -apple-pay-button-style: white;
+}
+
+.apple-pay-button-white-with-line {
+  -apple-pay-button-style: white-outline;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibW9sbGllLWFwcGxlcGF5ZGlyZWN0Lm1pbi5jc3MiLCJtYXBwaW5ncyI6Ijs7O0FBQUE7RUFDRTtBQUNGOztBQUNBO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7QUFFRjs7QUFDQTtFQUNFO0FBRUY7O0FBQ0E7RUFDRTtBQUVGOztBQUNBO0VBQ0U7QUFFRixDIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vbW9sbGllLXBheW1lbnRzLWZvci13b29jb21tZXJjZS8uL3Jlc291cmNlcy9zY3NzL21vbGxpZS1hcHBsZXBheWRpcmVjdC5zY3NzIl0sInNvdXJjZXNDb250ZW50IjpbIi5idXR0b25EaXNhYmxlZCB7XG4gIG9wYWNpdHk6IC4yO1xufVxuLmFwcGxlLXBheS1idXR0b24ge1xuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIHdpZHRoOiAxMDAlO1xuICAtd2Via2l0LWFwcGVhcmFuY2U6IC1hcHBsZS1wYXktYnV0dG9uO1xuICAtYXBwbGUtcGF5LWJ1dHRvbi10eXBlOiBjaGVja291dDsgLyogYWxzbzogY2hlY2stb3V0LCBib29rLCBvciBzdWJzY3JpYmUgKi9cbn1cblxuLmFwcGxlLXBheS1idXR0b24tYmxhY2sge1xuICAtYXBwbGUtcGF5LWJ1dHRvbi1zdHlsZTogYmxhY2s7XG59XG5cbi5hcHBsZS1wYXktYnV0dG9uLXdoaXRlIHtcbiAgLWFwcGxlLXBheS1idXR0b24tc3R5bGU6IHdoaXRlO1xufVxuXG4uYXBwbGUtcGF5LWJ1dHRvbi13aGl0ZS13aXRoLWxpbmUge1xuICAtYXBwbGUtcGF5LWJ1dHRvbi1zdHlsZTogd2hpdGUtb3V0bGluZTtcbn1cbiJdLCJuYW1lcyI6W10sInNvdXJjZVJvb3QiOiIifQ==*/

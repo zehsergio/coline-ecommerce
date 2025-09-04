@@ -1,0 +1,84 @@
+(function($){
+  'use strict';
+
+  function waitImages($scope){
+    var dfd = $.Deferred();
+    var $imgs = $scope.find('img');
+    var left = $imgs.length;
+    if(left === 0){ dfd.resolve(); return dfd.promise(); }
+    $imgs.each(function(){
+      if (this.complete) { left--; if(left<=0) dfd.resolve(); }
+      else { $(this).one('load error', function(){ left--; if(left<=0) dfd.resolve(); }); }
+    });
+    setTimeout(function(){ if(dfd.state()!=='resolved') dfd.resolve(); }, 1200);
+    return dfd.promise();
+  }
+
+  function initOne($root){
+    if($root.data('rbpdp-initialized')) return;
+    var mainEl = $root.find('.rbpdp-gallery--main')[0];
+    if(!mainEl) return;
+    var prevEl = $root.find('.rbpdp-gallery--previous')[0];
+    var nextEl = $root.find('.rbpdp-gallery--next')[0];
+
+    var opts = {
+      selectedAttraction: 0.03,
+      friction: 0.35,
+      draggable: true,
+      cellSelector: '.rbp-slide',
+      wrapAround: true,
+      setGallerySize: true,
+      cellAlign: 'center',
+      prevNextButtons: false,
+      pageDots: false,
+      watchCSS: false,
+      imagesLoaded: true,
+      percentPosition: false
+    };
+
+    function realInit(){
+      var flkMain = new Flickity(mainEl, opts);
+      var flkPrev = prevEl ? new Flickity(prevEl, opts) : null;
+      var flkNext = nextEl ? new Flickity(nextEl, opts) : null;
+
+      function syncAdj(index){
+        if(flkPrev) flkPrev.select(index - 1, true, false);
+        if(flkNext) flkNext.select(index + 1, true, false);
+      }
+
+      // Sync on change and at start
+      flkMain.on('ready', function(){
+        syncAdj(flkMain.selectedIndex);
+      });
+      flkMain.on('change', function(index){
+        syncAdj(index);
+      });
+
+      // Buttons
+      $root.on('click', '.rbp-btn-prev', function(){ flkMain.previous(); if(flkPrev) flkPrev.previous(); if(flkNext) flkNext.previous(); });
+      $root.on('click', '.rbp-btn-next', function(){ flkMain.next(); if(flkPrev) flkPrev.next(); if(flkNext) flkNext.next(); });
+
+      // Resize safety
+      var fix = 0, timer = setInterval(function(){
+        fix++;
+        try { if(flkMain.resize) flkMain.resize(); if(flkMain.reposition) flkMain.reposition(); } catch(e){}
+        if(fix >= 10) clearInterval(timer);
+      }, 400);
+
+      $root.data('rbpdp-initialized', true);
+    }
+
+    waitImages($root).then(realInit);
+  }
+
+  function mount(ctx){
+    (ctx?$(ctx):$(document)).find('.rbpdp').each(function(){ initOne($(this)); });
+  }
+
+  $(document).ready(function(){
+    mount();
+    if (window.elementorFrontend && window.elementorFrontend.hooks) {
+      elementorFrontend.hooks.addAction('frontend/element_ready/rb_flickity_pdp_gallery_final.default', function(scope){ mount(scope); });
+    }
+  });
+})(jQuery);

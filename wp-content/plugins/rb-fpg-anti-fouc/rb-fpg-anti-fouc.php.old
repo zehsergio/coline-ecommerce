@@ -1,0 +1,23 @@
+<?php
+/**
+ * Plugin Name: RB FPG — Anti FOUC & Editor Preview
+ * Description: Evita empilhamento de imagens antes do Flickity (FOUC) e melhora o preview no editor do Elementor.
+ * Version: 1.0.0
+ * Author: Você
+ * License: GPLv2 or later
+ */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+define( 'RB_FPG_AFX_URL', plugin_dir_url( __FILE__ ) );
+define( 'RB_FPG_AFX_VER', '1.0.0' );
+
+add_action('wp_enqueue_scripts', function(){
+  wp_enqueue_style('rb-fpg-anti-fouc', RB_FPG_AFX_URL . 'assets/css/anti-fouc.css', [], RB_FPG_AFX_VER );
+  wp_enqueue_script('rb-fpg-editor-mount', RB_FPG_AFX_URL . 'assets/js/editor-mount.js', ['jquery'], RB_FPG_AFX_VER, true );
+});
+
+add_action('elementor/editor/before_enqueue_scripts', function(){
+  wp_enqueue_style('rb-fpg-anti-fouc', RB_FPG_AFX_URL . 'assets/css/anti-fouc.css', [], RB_FPG_AFX_VER );
+  wp_enqueue_script('rb-fpg-editor-mount', RB_FPG_AFX_URL . 'assets/js/editor-mount.js', ['jquery'], RB_FPG_AFX_VER, true );
+});

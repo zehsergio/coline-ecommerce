@@ -1,0 +1,30 @@
+/* Anti-FOUC v3.1: front + editor sem empilhar e sem "fantasmas" */
+
+/* esconde visual até a gallery marcar --ready */
+.rbpdp { opacity: 0; }
+.rbpdp.rbpdp--ready { opacity: 1; transition: opacity .2s ease; }
+
+/* enquanto NÃO estiver pronto, não empilhar: mostrar só 1 slide por galeria */
+.rbpdp:not(.rbpdp--ready) .rbpdp-gallery .rbp-slide { display: none; }
+
+/* cada galeria mostra um slide “correto” antes do JS */
+.rbpdp:not(.rbpdp--ready) .rbpdp-gallery--main     .rbp-slide:first-child { display: block; } /* 0 */
+.rbpdp:not(.rbpdp--ready) .rbpdp-gallery--previous .rbp-slide:last-child  { display: block; } /* -1 */
+.rbpdp:not(.rbpdp--ready) .rbpdp-gallery--next     .rbp-slide:nth-child(2){ display: block; } /* +1 */
+
+/* fallback quando só há 1 slide */
+.rbpdp:not(.rbpdp--ready) .rbpdp-gallery--previous .rbp-slide:only-child { display: block; }
+.rbpdp:not(.rbpdp--ready) .rbpdp-gallery--next     .rbp-slide:only-child { display: block; }
+
+/* ===== Editor do Elementor: regras extras para não “sangrar” nada no fundo ===== */
+body.elementor-editor-active .rbpdp { position: relative; z-index: 5; overflow: hidden; }
+
+/* no editor, antes de estar pronto, esconda as galerias laterais por completo
+   (mostramos só a principal) para não gerar colunas duplicadas ao fundo */
+body.elementor-editor-active .rbpdp:not(.rbpdp--ready) .rbpdp-gallery--previous,
+body.elementor-editor-active .rbpdp:not(.rbpdp--ready) .rbpdp-gallery--next { display: none !important; }
+
+/* e na principal, mostre apenas o primeiro slide fixo */
+body.elementor-editor-active .rbpdp:not(.rbpdp--ready) .rbpdp-gallery--main .rbp-slide { display:none !important; }
+body.elementor-editor-active .rbpdp:not(.rbpdp--ready) .rbpdp-gallery--main .rbp-slide:first-child { display:block !important; }
+

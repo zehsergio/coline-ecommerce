@@ -204,3 +204,24 @@ require_once ASTRA_THEME_DIR . 'inc/core/markup/class-astra-markup.php';
 require_once ASTRA_THEME_DIR . 'inc/core/deprecated/deprecated-filters.php';
 require_once ASTRA_THEME_DIR . 'inc/core/deprecated/deprecated-hooks.php';
 require_once ASTRA_THEME_DIR . 'inc/core/deprecated/deprecated-functions.php';
+
+// Mostra o primeiro nome do usuário logado com link para My Account
+function my_logged_in_firstname() {
+    if ( is_user_logged_in() ) {
+        $current_user = wp_get_current_user();
+        $firstname = $current_user->user_firstname;
+
+        // Se não tiver primeiro nome, usa display name
+        if ( empty( $firstname ) ) {
+            $firstname = $current_user->display_name;
+        }
+
+        return '<a href="/my-account/" class="user-account-link">'
+             . '<span class="txt-account-header">👋🏻 Hello, </span>'
+             . esc_html( $firstname )
+             . '</a>';
+    }
+    return ''; // não mostra nada se não estiver logado
+}
+add_shortcode( 'user_firstname', 'my_logged_in_firstname' );
+
